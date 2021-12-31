@@ -1,6 +1,7 @@
 import "./sidebar.css";
 import { RssFeed, Comment, Group, Bookmarks, HelpOutline, Event, Today, PlayCircleOutline } from "@material-ui/icons";
-
+import { Users } from "../../dummyData";
+import MyTeam from "../myteam/MyTeam";
 export default function Sidebar() {
   return (
     <div className="sidebar">
@@ -42,50 +43,9 @@ export default function Sidebar() {
         <button className="sidebarButton">Show More</button>
         <hr className="sidebarHr" />
         <ul className="sidebarColleagueList">
-          <li className="sidebarColleague">
-            <img className="sidebarColleaguePicture" src="/assets/person/2.jpeg" alt="photocolleague" />
-            <span className="sidebarColleagueName">Jean Castex</span>
-          </li>
-          <li className="sidebarColleague">
-            <img className="sidebarColleaguePicture" src="/assets/person/2.jpeg" alt="photocolleague" />
-            <span className="sidebarColleagueName">Jean Castex</span>
-          </li>
-          <li className="sidebarColleague">
-            <img className="sidebarColleaguePicture" src="/assets/person/2.jpeg" alt="photocolleague" />
-            <span className="sidebarColleagueName">Jean Castex</span>
-          </li>
-          <li className="sidebarColleague">
-            <img className="sidebarColleaguePicture" src="/assets/person/2.jpeg" alt="photocolleague" />
-            <span className="sidebarColleagueName">Jean Castex</span>
-          </li>
-          <li className="sidebarColleague">
-            <img className="sidebarColleaguePicture" src="/assets/person/2.jpeg" alt="photocolleague" />
-            <span className="sidebarColleagueName">Jean Castex</span>
-          </li>
-          <li className="sidebarColleague">
-            <img className="sidebarColleaguePicture" src="/assets/person/2.jpeg" alt="photocolleague" />
-            <span className="sidebarColleagueName">Jean Castex</span>
-          </li>
-          <li className="sidebarColleague">
-            <img className="sidebarColleaguePicture" src="/assets/person/2.jpeg" alt="photocolleague" />
-            <span className="sidebarColleagueName">Jean Castex</span>
-          </li>
-          <li className="sidebarColleague">
-            <img className="sidebarColleaguePicture" src="/assets/person/2.jpeg" alt="photocolleague" />
-            <span className="sidebarColleagueName">Jean Castex</span>
-          </li>
-          <li className="sidebarColleague">
-            <img className="sidebarColleaguePicture" src="/assets/person/2.jpeg" alt="photocolleague" />
-            <span className="sidebarColleagueName">Jean Castex</span>
-          </li>
-          <li className="sidebarColleague">
-            <img className="sidebarColleaguePicture" src="/assets/person/2.jpeg" alt="photocolleague" />
-            <span className="sidebarColleagueName">Jean Castex</span>
-          </li>
-          <li className="sidebarColleague">
-            <img className="sidebarColleaguePicture" src="/assets/person/2.jpeg" alt="photocolleague" />
-            <span className="sidebarColleagueName">Jean Castex</span>
-          </li>
+          {Users.map((u) => (
+            <MyTeam key={u.id} user={u} />
+          ))}
         </ul>
       </div>
     </div>

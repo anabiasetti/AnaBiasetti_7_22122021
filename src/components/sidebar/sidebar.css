@@ -4,6 +4,8 @@
   overflow-y: scroll;
   scrollbar-width: 3px;
   scrollbar-color: #878788 #f1f1f1;
+  position: sticky;
+  top: 50px;
 }
 
 .sidebarWrapper {
@@ -37,16 +39,4 @@
   padding: 0;
   margin: 0;
   list-style: none;
-}
-.sidebarcolleague {
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-}
-.sidebarColleaguePicture {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-right: 10px;
 }
