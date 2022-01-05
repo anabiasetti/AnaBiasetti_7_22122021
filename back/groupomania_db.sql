@@ -16,18 +16,77 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `utilisateur`
+-- Table structure for table `comments`
 --
 
-DROP TABLE IF EXISTS `utilisateur`;
+DROP TABLE IF EXISTS `comments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `utilisateur` (
+CREATE TABLE `comments` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `text` varchar(255) DEFAULT NULL,
+  `user_id` int NOT NULL,
+  `post_id` int NOT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `fk_comments_user_id` (`user_id`),
+  KEY `fk_comments_post_id` (`post_id`),
+  CONSTRAINT `fk_comments_post_id` FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`),
+  CONSTRAINT `fk_comments_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `comments`
+--
+
+LOCK TABLES `comments` WRITE;
+/*!40000 ALTER TABLE `comments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `comments` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `posts`
+--
+
+DROP TABLE IF EXISTS `posts`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `posts` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `title` varchar(100) NOT NULL,
+  `text` varchar(255) DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `user_id` int NOT NULL,
+  `url` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_posts_user_id` (`user_id`),
+  CONSTRAINT `fk_posts_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `posts`
+--
+
+LOCK TABLES `posts` WRITE;
+/*!40000 ALTER TABLE `posts` DISABLE KEYS */;
+/*!40000 ALTER TABLE `posts` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `users`
+--
+
+DROP TABLE IF EXISTS `users`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `users` (
   `id` int NOT NULL AUTO_INCREMENT,
   `nom` varchar(50) DEFAULT NULL,
   `prenom` varchar(50) DEFAULT NULL,
   `email` varchar(255) NOT NULL,
-  `isadmin` tinyint(1) DEFAULT '0',
+  `is_admin` tinyint(1) DEFAULT '0',
   `password` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
@@ -35,12 +94,12 @@ CREATE TABLE `utilisateur` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `utilisateur`
+-- Dumping data for table `users`
 --
 
-LOCK TABLES `utilisateur` WRITE;
-/*!40000 ALTER TABLE `utilisateur` DISABLE KEYS */;
-/*!40000 ALTER TABLE `utilisateur` ENABLE KEYS */;
+LOCK TABLES `users` WRITE;
+/*!40000 ALTER TABLE `users` DISABLE KEYS */;
+/*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +111,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-01-05  1:54:48
+-- Dump completed on 2022-01-05 23:50:23
