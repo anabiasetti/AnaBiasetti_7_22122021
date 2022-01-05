@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const { json } = require("express/lib/response");
+//Import routes
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
 
