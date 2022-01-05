@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "dump": "sudo mysqldump -u root -p groupomania_db > groupomania_db.sql"
   },
   "dependencies": {
     "dotenv": "^10.0.0",
