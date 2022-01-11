@@ -1,41 +1,43 @@
 const express = require("express");
+const cors = require("cors");
+
 const app = express();
-const mysql = require("mysql");
+const db = require("./app/models");
+db.sequelize.sync({ alter: true }).then(() => {
+  console.log("Resync Db");
+});
+
+const corsOptions = {
+  origin: "http://localhost:3000",
+};
+
+// set port, listen for requests
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}.`);
+});
+
 const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
-const { json } = require("express/lib/response");
-//Import routes
-const userRoute = require("./routes/users");
-const authRoute = require("./routes/auth");
 
 dotenv.config();
 
-const connection = mysql.createConnection({
-  host: "localhost",
-  user: "groupomania",
-  password: "ilopqy6UQ2*iP0BJ7)3?",
-  database: "groupomania_db",
-});
-
-connection.connect();
-
-connection.query("SELECT 1 + 1 AS solution", function (err, rows, fields) {
-  if (err) throw err;
-
-  console.log("The solution is: ", rows[0].solution);
-});
-
-connection.end();
-
-//middleware
+//Middlewares
+// parse requests of content-type - application/json
 app.use(express.json());
+// parse requests of content-type - application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
+//cors
+app.use(cors(corsOptions));
 app.use(helmet());
 app.use(morgan("common"));
 
-app.use("/api/users", userRoute);
-app.use("/api/auth", authRoute);
-
-app.listen(8800, () => {
-  console.log("Backend server is running!");
+// simple route
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to Goupomania application." });
 });
+
+// routes
+require("./app/routes/auth.routes")(app);
+require("./app/routes/user.routes")(app);
