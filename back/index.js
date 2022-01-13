@@ -1,9 +1,11 @@
 const express = require("express");
 const cors = require("cors");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const app = express();
 const db = require("./app/models");
-db.sequelize.sync({ alter: true }).then(() => {
+db.sequelize.sync({ force: false }).then(() => {
   console.log("Resync Db");
 });
 
@@ -17,11 +19,8 @@ app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}.`);
 });
 
-const dotenv = require("dotenv");
 const helmet = require("helmet");
 const morgan = require("morgan");
-
-dotenv.config();
 
 //Middlewares
 // parse requests of content-type - application/json
@@ -33,11 +32,7 @@ app.use(cors(corsOptions));
 app.use(helmet());
 app.use(morgan("common"));
 
-// simple route
-app.get("/", (req, res) => {
-  res.json({ message: "Welcome to Goupomania application." });
-});
-
 // routes
 require("./app/routes/auth.routes")(app);
+require("./app/routes/post.routes")(app);
 require("./app/routes/user.routes")(app);
