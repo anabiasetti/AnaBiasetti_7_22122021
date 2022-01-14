@@ -1,11 +1,26 @@
-exports.allAccess = (req, res) => {
-  res.status(200).send("Public Content.");
+const db = require("../models");
+const User = db.user;
+// 1. get all users
+exports.getAllUsers = (req, res) => {
+  User.findAll({})
+    .then((user) => {
+      res.send({ message: "All Users where found successfully!" });
+    })
+    .catch((err) => {
+      res.status(500).send({ message: err.message });
+    });
 };
+//2. delete user by id
 
-exports.userBoard = (req, res) => {
-  res.status(200).send("User Content.");
-};
+exports.deleteUser = (req, res) => {
+  let id = req.params.id;
 
-exports.adminBoard = (req, res) => {
-  res.status(200).send("Admin Content.");
+  User.destroy({ where: { id: id } })
+
+    .then((user) => {
+      res.send({ message: "User is deleted !" });
+    })
+    .catch((err) => {
+      res.status(500).send({ message: err.message });
+    });
 };
